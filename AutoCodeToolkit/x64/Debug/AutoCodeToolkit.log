@@ -1,5 +1,31 @@
-﻿Build started 2015/5/29 14:23:21.
+﻿Build started 2015/5/29 16:36:23.
+     1>Project "D:\Solution\Project\autocodeX\AutoCodeToolkit\AutoCodeToolkit.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (AutoCodeToolkit.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"D:\Solution\Project\mysql-5.6.24-winx64\include" /Zi /nologo /W3 /WX- /sdl /Od /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"x64\Debug\autocodeX.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"D:\Solution\Project\mysql-5.6.24-winx64\include" /Zi /nologo /W3 /WX- /sdl /Od /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Debug\autocodeX.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt AutoCodeToolkit.cpp mysql_table2code.cpp
+         mysql_table2code.cpp
+     1>mysql_table2code.cpp(13): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>mysql_table2code.cpp(93): warning C4267: 'argument' : conversion from 'size_t' to 'unsigned long', possible loss of data
+     1>mysql_table2code.cpp(115): warning C4267: 'argument' : conversion from 'size_t' to 'DWORD', possible loss of data
+     1>mysql_table2code.cpp(208): warning C4267: 'argument' : conversion from 'size_t' to 'DWORD', possible loss of data
+     1>mysql_table2code.cpp(104): warning C4101: 'dwPos' : unreferenced local variable
+     1>mysql_table2code.cpp(89): warning C4101: 'ret' : unreferenced local variable
+     1>mysql_table2code.cpp(104): warning C4101: 'dwBytesRead' : unreferenced local variable
+     1>mysql_table2code.cpp(245): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+         AutoCodeToolkit.cpp
+         Generating Code...
+       ResourceCompile:
+         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /nologo /fo"x64\Debug\AutoCodeToolkit.res" AutoCodeToolkit.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Solution\Project\autocodeX\x64\Debug\autocodeX.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Solution\Projects\mysql-5.6.22-winx64\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Solution\Project\autocodeX\x64\Debug\autocodeX.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Solution\Project\autocodeX\x64\Debug\autocodeX.lib" /MACHINE:X64 x64\Debug\AutoCodeToolkit.res
+         x64\Debug\AutoCodeToolkit.obj
+         x64\Debug\mysql_table2code.obj
+         x64\Debug\stdafx.obj
+         AutoCodeToolkit.vcxproj -> D:\Solution\Project\autocodeX\x64\Debug\autocodeX.exe
+     1>Done Building Project "D:\Solution\Project\autocodeX\AutoCodeToolkit\AutoCodeToolkit.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.04
+Time Elapsed 00:00:02.38
