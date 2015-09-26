@@ -62,7 +62,7 @@ void mysql_table2code(HWND hWnd)
 	//database configuartion
 	char dbuser[30] = "redmine";
 	char dbpasswd[30] = "123456";
-	char dbip[30] = "172.16.25.148";
+	char dbip[30] = "172.16.161.211";
 	unsigned int dbport = 3306;
 	char dbname[50] = "redmine";
 	char tablename[50] = "issues";
@@ -259,16 +259,17 @@ char* plt_get_mysql_field_type_name(enum_field_types field_type)
 {
 	switch (field_type)
 	{
-	case 0:	return "Decimal";
-	case 1:	return "Tiny";
-	case 2:	return "Short";
-	case 3:	return "Long";
-	case 4:	return "Float";
-	case 5:	return "Double";
-	case 6:	return "NULL";
-	case 7:	return "Timestamp";
-	case 12: return "Date";
-	case 253: return "String";
+	case 0:	return "Decimal";   //MYSQL_TYPE_DECIMAL
+	case 1:	return "int";       //MYSQL_TYPE_TINY
+	case 2:	return "Short";     //MYSQL_TYPE_SHORT
+	case 3:	return "Long";      //MYSQL_TYPE_LONG
+	case 4:	return "Float";     //MYSQL_TYPE_FLOAT
+	case 5:	return "Double";    //MYSQL_TYPE_DOUBLE
+	case 6:	return "NULL";      //MYSQL_TYPE_NULL
+	case 7:	return "Timestamp"; //MYSQL_TYPE_TIMESTAMP
+	case 12: return "Date";     //MYSQL_TYPE_DATETIME
+	case 253: return "String";  //MYSQL_TYPE_VAR_STRING
 	default: return "";
 	}
 }
+
