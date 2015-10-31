@@ -11,13 +11,13 @@
   -----------------------------------------------------------------------
   The Java get/set method stype is listed below:
   
-  public <field_type> get<method_name>() {
-	return <field_name>;
-  }
+	  public <field_type> get<method_name>() {
+		return <field_name>;
+	  }
   
-  public void set<method_name>(<field_type> p0) {
-	<field_name> = p0;
-  }
+	  public void set<method_name>(<field_type> p0) {
+		<field_name> = p0;
+	  }
 */
 typedef struct java_pojo_object
 {
