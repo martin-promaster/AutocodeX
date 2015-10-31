@@ -154,6 +154,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="xString.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AutoCodeToolkit.cpp" />
@@ -164,6 +165,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="xString.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AutoCodeToolkit.rc" />
