@@ -35,3 +35,5 @@ char* plt_get_mysql_field_type_name(enum_field_types field_type);
 TCHAR* plt_MultiByteToWideChar(LPCCH lpMutiByteStr);
 
 void mysql_table2code(HWND hWnd);
+
+void only_4_test(void);
