@@ -23,8 +23,8 @@ typedef struct java_pojo_object
 {
 	char* file_name;
 
-	char *field_name;
-	char *field_type;
+	char* field_name;
+	char* field_type;
 
 	char* get_method_name;
 	char* set_method_name;
