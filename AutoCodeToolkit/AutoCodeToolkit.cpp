@@ -54,6 +54,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 		}
 	}
 
+	// Modified for test git push
+
 	return (int) msg.wParam;
 }
 
