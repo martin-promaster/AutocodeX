@@ -10,3 +10,8 @@ xString::xString()
 xString::~xString()
 {
 }
+
+xString::xString(char* initString)
+{
+	strcpy(lpszString, initString);
+}
