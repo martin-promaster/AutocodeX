@@ -60,16 +60,55 @@ void mysql_table2code(HWND hWnd)
 	}
 
 	//database configuartion
-	char dbuser[30] = "redmine";
-	char dbpasswd[30] = "123456";
-	char dbip[30] = "172.16.161.211";
-	unsigned int dbport = 3306;
-	char dbname[50] = "redmine";
-	char tablename[50] = "issues";
+	/*
+	HKEY key;
+	RegCreateKeyEx(HKEY_CURRENT_USER, L"SOFTWARE\\autocodeX\\DatabaseContext", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &key, NULL);
+	RegSetKeyValue(key, NULL, L"DBUser", REG_SZ, L"iems_user", sizeof("iems_user")*2);
+	RegSetKeyValue(key, NULL, L"DBPassword", REG_SZ, L"iems$2016", sizeof("iems$2016") * 2);
+	RegSetKeyValue(key, NULL, L"DBIpAddress", REG_SZ, L"10.129.132.224", sizeof("10.129.132.224") * 2);
+	RegSetKeyValue(key, NULL, L"DBSchemaName", REG_SZ, L"iems_db", sizeof("iems_db") * 2);
+	RegSetKeyValue(key, NULL, L"DBTableName", REG_SZ, L"tbl_sys_oper", sizeof("tbl_sys_oper") * 2);
+	RegCloseKey(key);
+	*/
+
+	EX_MYSQL_CONTEXT mysql_ctx;
+
+	HKEY hKey;
+	DWORD cbData = 0;
+	RegOpenKeyEx(HKEY_CURRENT_USER, L"SOFTWARE\\autocodeX\\DatabaseContext", REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, &hKey);
+
+	// Determin the length of the string.
+	RegGetValue(hKey, NULL, L"DBUser", RRF_RT_REG_SZ, NULL, NULL, &cbData);
+	mysql_ctx.dbuser = new TCHAR[cbData];
+	RegGetValue(hKey, NULL, L"DBUser", RRF_RT_REG_SZ, NULL, mysql_ctx.dbuser, &cbData);
+
+	RegGetValue(hKey, NULL, L"DBPassword", RRF_RT_REG_SZ, NULL, NULL, &cbData);
+	mysql_ctx.dbpasswd = new TCHAR[cbData];
+	RegGetValue(hKey, NULL, L"DBPassword", RRF_RT_REG_SZ, NULL, mysql_ctx.dbpasswd, &cbData);
+
+	RegGetValue(hKey, NULL, L"DBIpAddress", RRF_RT_REG_SZ, NULL, NULL, &cbData);
+	mysql_ctx.dbip = new TCHAR[cbData];
+	RegGetValue(hKey, NULL, L"DBIpAddress", RRF_RT_REG_SZ, NULL, mysql_ctx.dbip, &cbData);
+
+	RegGetValue(hKey, NULL, L"DBSchemaName", RRF_RT_REG_SZ, NULL, NULL, &cbData);
+	mysql_ctx.dbname = new TCHAR[cbData];
+	RegGetValue(hKey, NULL, L"DBSchemaName", RRF_RT_REG_SZ, NULL, mysql_ctx.dbname, &cbData);
+
+	RegGetValue(hKey, NULL, L"DBTableName", RRF_RT_REG_SZ, NULL, NULL, &cbData);
+	mysql_ctx.tablename = new TCHAR[cbData];
+	RegGetValue(hKey, NULL, L"DBTableName", RRF_RT_REG_SZ, NULL, mysql_ctx.tablename, &cbData);
+
+	RegCloseKey(hKey);
+
 	char *query = NULL;
 
-	if ( NULL == mysql_real_connect(myConn, dbip, dbuser, dbpasswd, 
-		dbname,	dbport, NULL, 0) )
+	
+	if ( NULL == mysql_real_connect(myConn, 
+		plt_WideCharToMultiByte(mysql_ctx.dbip),
+		plt_WideCharToMultiByte(mysql_ctx.dbuser),
+		plt_WideCharToMultiByte(mysql_ctx.dbpasswd),
+		plt_WideCharToMultiByte(mysql_ctx.dbname),
+		mysql_ctx.dbport, NULL, 0) )
 	{
 		const char *errMessage = NULL;
 		errMessage = mysql_error(myConn);
@@ -77,7 +116,7 @@ void mysql_table2code(HWND hWnd)
 		return;
 	}
 
-	if ( NULL != mysql_select_db(myConn, dbname))
+	if ( NULL != mysql_select_db(myConn, plt_WideCharToMultiByte(mysql_ctx.dbname) ))
 	{
 		const char *errMessage = NULL;
 		errMessage = mysql_error(myConn);
@@ -85,14 +124,19 @@ void mysql_table2code(HWND hWnd)
 		return;
 	}
 
-	char tmpSql[640];
+	TCHAR tmpSql[640];
 	int ret;
 
-	sprintf_s(tmpSql, "select * from %s", tablename);
+	wsprintf(tmpSql, L"select * from %s", mysql_ctx.tablename);
 
-	if (mysql_real_query(myConn, tmpSql, strlen(tmpSql)))
+	char *sSql = plt_WideCharToMultiByte(tmpSql);
+	if (mysql_real_query(myConn, sSql, strlen(sSql)))
 	{
-		printf("Error making query: %s !!!\n", mysql_error(myConn));
+		TCHAR* errMsg = new TCHAR[1024];
+		memset(errMsg, 0, lstrlen(errMsg));
+		wsprintf(errMsg,  L"Error making query: %s !!!\n", plt_MultiByteToWideChar(mysql_error(myConn)));
+		MessageBox(0, errMsg, L"", MB_OKCANCEL);
+		return ;
 	}
 
 
@@ -254,6 +298,22 @@ TCHAR* plt_MultiByteToWideChar(LPCCH lpMutiByteStr)
 	return lpWideCharStr;
 
 }
+
+LPCH plt_WideCharToMultiByte(TCHAR* lpWideCharStr)
+{
+	int nSize = lstrlen(lpWideCharStr);
+
+	int nLen = WideCharToMultiByte(CP_OEMCP, 0, lpWideCharStr, -1, NULL, 0, NULL, FALSE);
+
+	LPCH lpMutiByteStr = new CHAR[nLen];
+	memset(lpMutiByteStr, 0, nLen);
+
+	WideCharToMultiByte(CP_OEMCP, 0, lpWideCharStr, nSize, lpMutiByteStr, nLen, NULL, FALSE);
+
+	return lpMutiByteStr;
+
+}
+
 
 char* plt_get_mysql_field_type_name(enum_field_types field_type)
 {
