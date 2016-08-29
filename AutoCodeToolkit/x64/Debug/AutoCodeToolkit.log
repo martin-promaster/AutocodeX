@@ -1,0 +1,12 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (AutoCodeToolkit.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  mysql_table2code.cpp
+d:\solution\projects\autocodex\autocodetoolkit\mysql_table2code.cpp(13): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+d:\solution\projects\autocodex\autocodetoolkit\mysql_table2code.cpp(108): warning C4267: “参数”: 从“size_t”转换到“unsigned long”，可能丢失数据
+d:\solution\projects\autocodex\autocodetoolkit\mysql_table2code.cpp(134): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+d:\solution\projects\autocodex\autocodetoolkit\mysql_table2code.cpp(227): warning C4267: “参数”: 从“size_t”转换到“DWORD”，可能丢失数据
+d:\solution\projects\autocodex\autocodetoolkit\mysql_table2code.cpp(123): warning C4101: “dwPos”: 未引用的局部变量
+d:\solution\projects\autocodex\autocodetoolkit\mysql_table2code.cpp(123): warning C4101: “dwBytesRead”: 未引用的局部变量
+d:\solution\projects\autocodex\autocodetoolkit\mysql_table2code.cpp(103): warning C4101: “ret”: 未引用的局部变量
+d:\solution\projects\autocodex\autocodetoolkit\mysql_table2code.cpp(264): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  AutoCodeToolkit.vcxproj -> D:\Solution\Projects\autocodeX\x64\Debug\autocodeX.exe
+  AutoCodeToolkit.vcxproj -> D:\Solution\Projects\autocodeX\x64\Debug\autocodeX.pdb (Full PDB)

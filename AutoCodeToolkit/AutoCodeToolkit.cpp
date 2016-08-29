@@ -198,15 +198,69 @@ INT_PTR CALLBACK MySqlCtxConfig(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
 	switch (message)
 	{
 	case WM_INITDIALOG:
-		return (INT_PTR)TRUE;
+		{
+		EX_MYSQL_CONTEXT emc;
+		GetDatabaseContextFromRegistry(emc);
 
+		HWND hItem;
+
+		hItem = GetDlgItem(hDlg, IDC_EDT_DBIP);
+		SendMessage(hItem, WM_SETTEXT, wParam, LPARAM(emc.dbip));
+
+		hItem = GetDlgItem(hDlg, IDC_EDT_DBNAME);
+		SendMessage(hItem, WM_SETTEXT, wParam, LPARAM(emc.dbname));
+
+		hItem = GetDlgItem(hDlg, IDC_EDT_DBUSER);
+		SendMessage(hItem, WM_SETTEXT, wParam, LPARAM(emc.dbuser));
+
+		hItem = GetDlgItem(hDlg, IDC_EDT_DBPWD);
+		SendMessage(hItem, WM_SETTEXT, wParam, LPARAM(emc.dbpasswd));
+
+		hItem = GetDlgItem(hDlg, IDC_EDT_DBTBL);
+		SendMessage(hItem, WM_SETTEXT, wParam, LPARAM(emc.tablename));
+		}
+		return (INT_PTR)TRUE;
 	case WM_COMMAND:
 		if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
 		{
 			EndDialog(hDlg, LOWORD(wParam));
 			return (INT_PTR)TRUE;
 		}
+		else if (LOWORD(wParam) == IDC_BTN_APPLY)
+		{
+			EX_MYSQL_CONTEXT emc;
+
+			
+			HKEY hKey;
+			RegOpenKeyEx(HKEY_CURRENT_USER, L"SOFTWARE\\autocodeX\\DatabaseContext", REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, &hKey);
+			
+			HWND hItem;
+			TCHAR szVal[256];
+
+			hItem = GetDlgItem(hDlg, IDC_EDT_DBIP);
+			SendMessage(hItem, WM_GETTEXT, sizeof(szVal), LPARAM(szVal));
+			RegSetKeyValue(hKey, NULL, L"DBIpAddress", REG_SZ, szVal, sizeof(szVal));
+
+			hItem = GetDlgItem(hDlg, IDC_EDT_DBNAME);
+			SendMessage(hItem, WM_GETTEXT, sizeof(szVal), LPARAM(szVal));
+			RegSetKeyValue(hKey, NULL, L"DBSchemaName", REG_SZ, szVal, sizeof(szVal)); 
+
+			hItem = GetDlgItem(hDlg, IDC_EDT_DBUSER);
+			SendMessage(hItem, WM_GETTEXT, sizeof(szVal), LPARAM(szVal));
+			RegSetKeyValue(hKey, NULL, L"DBUser", REG_SZ, szVal, sizeof(szVal));
+
+			hItem = GetDlgItem(hDlg, IDC_EDT_DBPWD);
+			SendMessage(hItem, WM_GETTEXT, sizeof(szVal), LPARAM(szVal));
+			RegSetKeyValue(hKey, NULL, L"DBPassword", REG_SZ, szVal, sizeof(szVal));
+
+			hItem = GetDlgItem(hDlg, IDC_EDT_DBTBL);
+			SendMessage(hItem, WM_GETTEXT, sizeof(szVal), LPARAM(szVal));
+			RegSetKeyValue(hKey, NULL, L"DBTableName", REG_SZ, szVal, sizeof(szVal));
+
+			RegCloseKey(hKey);
+		}
 		break;
 	}
 	return (INT_PTR)FALSE;
 }
+

@@ -4,6 +4,9 @@
 #include <mysql.h>
 #pragma comment(lib, "libmysql.lib")
 
+// TODO: reference additional headers your program requires here
+#include "platform.h"
+
 /*
   Added by: Martin Dong
   Date: 2015-04-09
@@ -30,14 +33,7 @@ typedef struct java_pojo_object
 	char* set_method_name;
 } J_POJO_OBJ;
 
-typedef struct tMySQLContext {
-	TCHAR *dbuser;
-	TCHAR *dbpasswd;
-	TCHAR *dbip;
-	unsigned int dbport = 3306;
-	TCHAR *dbname;
-	TCHAR *tablename;
-} EX_MYSQL_CONTEXT;
+
 
 char* plt_get_mysql_field_type_name(enum_field_types field_type);
 
