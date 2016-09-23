@@ -120,8 +120,13 @@ void mysql_table2code(HWND hWnd)
 
 	// Prepare fille handle to store the result set.
 	// +
+	TCHAR *strOutputFilename = new TCHAR[128];
+	lstrcpy(strOutputFilename, mysql_ctx.tablename);
+	lstrcat(strOutputFilename, L".java");
+
 	DWORD dwBytesRead, dwBytesWritten, dwPos;
-	HANDLE hfile = CreateFile(L"test.java", GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+
+	HANDLE hfile = CreateFile(strOutputFilename, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hfile == INVALID_HANDLE_VALUE)
 	{
 		CloseHandle(hfile);
@@ -130,6 +135,7 @@ void mysql_table2code(HWND hWnd)
 
 	// 
 	char szJavaClassBegin[] = "public class test {\n";
+	
 	char szJavaClassEnd[] = "\n}";
 	WriteFile(hfile, szJavaClassBegin, strlen(szJavaClassBegin), &dwBytesWritten, NULL);
 	// -
@@ -219,7 +225,6 @@ void mysql_table2code(HWND hWnd)
 		WriteFile(hfile, output, nRet, &dwBytesWritten, NULL);
 
 		WriteFile(hfile, L"\n", 1, &dwBytesWritten, NULL);
-
 
 		printf("");
 	}
