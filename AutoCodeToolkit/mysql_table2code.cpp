@@ -133,11 +133,14 @@ void mysql_table2code(HWND hWnd)
 		return;
 	}
 
-	// 
-	char szJavaClassBegin[] = "public class test {\n";
+	// Generate Java class declare.
+	TCHAR sJavaClassBegin[128];
+	wsprintf(sJavaClassBegin, L"public class %s {\n", mysql_ctx.tablename);
+	char *lpszJavaClassBegin = new char[128];
+	lpszJavaClassBegin = plt_WideCharToMultiByte(sJavaClassBegin);
 	
 	char szJavaClassEnd[] = "\n}";
-	WriteFile(hfile, szJavaClassBegin, strlen(szJavaClassBegin), &dwBytesWritten, NULL);
+	WriteFile(hfile, lpszJavaClassBegin, strlen(lpszJavaClassBegin), &dwBytesWritten, NULL);
 	// -
 
 	int nPosX = 10;
